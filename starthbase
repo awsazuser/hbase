@@ -1,0 +1,14 @@
+docker-compose up -d
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}     {{.Config.Hostname}}' $(docker ps -aq) > hosts
+
+docker cp hosts hbase-master:/etc/hosts
+docker cp hosts hbase-slave1:/etc/hosts
+docker cp hosts hbase-slave2:/etc/hosts
+
+docker exec -it hbase-master /usr/local/hadoop/sbin/start-dfs.sh
+docker exec -it hbase-master /usr/local/hadoop/sbin/start-yarn.sh
+docker exec -it hbase-master /usr/local/hbase/bin/start-hbase.sh
+sleep 20
+docker exec -it hbase-master /usr/local/hbase/bin/start-hbase.sh
+

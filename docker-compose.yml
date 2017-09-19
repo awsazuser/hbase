@@ -1,0 +1,45 @@
+version: "2"
+
+services:
+  hbase-master:
+    image: hbasev1:latest
+    hostname : hbase-master
+    container_name: hbase-master
+    networks:
+      - hadoop
+    ports:
+    - "8088:8088"
+    - "50070:50070"
+    - "60010:60010"
+    - "16010:16010"
+    - "8085:8085"
+    - "9095:9095"
+    - "9000:9000"
+    depends_on:
+      - zookeeper1
+  hbase-slave1:
+    image: hbasev1:latest
+    hostname: hbase-slave1
+    container_name: hbase-slave1
+    networks:
+      - hadoop
+    depends_on:
+      - zookeeper1
+  hbase-slave2:
+    image: hbasev1:latest
+    hostname: hbase-slave2
+    container_name: hbase-slave2
+    networks:
+      - hadoop
+    depends_on:
+      - zookeeper1
+  zookeeper1:
+    image: zkpv1:latest
+    hostname: zookeeper1
+    container_name: zookeeper1
+    ports:
+      - "2181:2181"
+    networks:
+      - hadoop
+networks:
+  hadoop:

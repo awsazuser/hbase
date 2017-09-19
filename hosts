@@ -1,0 +1,7 @@
+172.19.0.7     solr2
+172.19.0.8     solr1
+172.19.0.6     zookeeper2
+172.19.0.5     hbase-slave2
+172.19.0.4     hbase-master
+172.19.0.3     hbase-slave1
+172.19.0.2     zookeeper1
